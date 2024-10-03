@@ -8,6 +8,9 @@ def pascal_triangle(n: int) -> [[int]]:
     """
     using nested loops, we create the n-rows , 1:n columns matrix
     """
+    if int(n) != n:
+        raise TypeError("n must be poitive int")
+
     if n <= 0:
         return []
 
