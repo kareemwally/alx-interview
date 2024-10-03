@@ -1,26 +1,18 @@
 #!/usr/bin/python3
-def matrix(n):
-    """making a full n-rows with 1:n columns matrix all elements =1"""
-    res = []
-    for i in range(n):
-        res.append([1 for _ in range(i + 1)])
-    return res
-
-
 def pascal_triangle(n):
     """
-    pascal traingle is a true wonder in the mathmatics field
-
+    using nested loops, we create the n-rows , 1:n columns matrix
     """
-    if int(n) != n:
-        raise TypeError("n must be an integer")
+    if n <= 0:
+        return []
 
-    mat = matrix(n)
-    if len(mat) <= 2:
-        return mat
+    triangle = [[1]]
+    for i in range(1, n):
+        prev_row = triangle[-1]
+        new_row = [1]
+        for j in range(1, i):
+            new_row.append(prev_row[j-1] + prev_row[j])
+        new_row.append(1)
+        triangle.append(new_row)
 
-    for i in range(2, n):
-        for j in range(1, len(mat[i]) - 1):
-            mat[i][j] = mat[i - 1][j - 1] + mat[i - 1][j]
-
-    return mat
+    return triangle
