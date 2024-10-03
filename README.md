@@ -1,2 +1,1 @@
-pascal traingle is one true wonder in mathmatics.
-which has so many imolementations.
+it's time to warm up with some problem solving and mock interviews questions
