@@ -14,14 +14,13 @@ def pascal_triangle(n):
     """
     if int(n) != n:
         raise TypeError("n must be an integer")
-    
+
     mat = matrix(n)
     if len(mat) <= 2:
         return mat
-    
 
     for i in range(2, n):
-        for j in range(1,len(mat[i]) - 1):
-            mat[i][j] = mat[i -1 ][j - 1] + mat [i - 1] [j]
-    
+        for j in range(1, len(mat[i]) - 1):
+            mat[i][j] = mat[i - 1][j - 1] + mat[i - 1][j]
+
     return mat
