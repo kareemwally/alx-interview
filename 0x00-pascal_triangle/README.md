@@ -1,2 +1,2 @@
 pascal traingle is one true wonder in mathmatics.
-which has so many imolementations.
+which has so many implementations.
