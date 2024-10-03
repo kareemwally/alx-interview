@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-def pascal_triangle(n):
+def pascal_triangle(n: int):
     """
     using nested loops, we create the n-rows , 1:n columns matrix
     """
