@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+a simple module to return a pascal triangle
+"""
+
+
 def pascal_triangle(n: int) -> [[int]]:
     """
     using nested loops, we create the n-rows , 1:n columns matrix
