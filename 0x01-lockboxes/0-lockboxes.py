@@ -2,7 +2,7 @@
 """
 a simple module containing a 2D array checking-function
 """
-from typing import List,
+from typing import List
 
 
 def canUnlockAll(boxes: List[List[int]]) -> bool:
