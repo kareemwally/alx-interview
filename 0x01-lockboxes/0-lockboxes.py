@@ -1,5 +1,14 @@
 #!/usr/bin/python3
-def canUnlockAll(boxes):
+"""
+a simple module containing a 2D array checking-function
+"""
+from typing import List,
+
+
+def canUnlockAll(boxes: List[List[int]]) -> bool:
+    """
+    a function checking all the boxes can be opened
+    """
     unlocked = [False] * len(boxes)
     unlocked[0] = True
     keys = [0]
