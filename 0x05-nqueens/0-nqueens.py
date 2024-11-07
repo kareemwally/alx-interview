@@ -5,55 +5,55 @@ simple module to solve the N queens problems
 import sys
 
 
-def is_safe(board, row, col, n):
+def print_usage_and_exit():
     """
-    Check if it's safe to place a queen on board[row][col].
     """
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
-
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-
-    for i, j in zip(range(row, n, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-
-    return True
+    print("Usage: nqueens N")
+    sys.exit(1)
 
 
 def solve_nqueens(n):
     """
-    Solve the N Queens problem and print all possible solutions.
+    solving function for N queens
     """
-    board = [[0 for _ in range(n)] for _ in range(n)]
     solutions = []
-    solve_nqueens_util(board, 0, n, solutions)
-    for sol in solutions:
-        print([[i, sol.index(i)] for i in sol])
+    board = [-1] * n
+    backtrack(board, 0, solutions, n)
+    return solutions
 
 
-def solve_nqueens_util(board, col, n, solutions):
+def backtrack(board, row, solutions, n):
     """
-    Recursive utility function to solve the N Queens problem.
+    backtracking
     """
-    if col == n:
-        solutions.append([row[:] for row in board])
-        return
+    if row == n:
+        solutions.append([[i, board[i]] for i in range(n)])
+    else:
+        for col in range(n):
+            if is_safe(board, row, col):
+                board[row] = col
+                backtrack(board, row + 1, solutions, n)
+                board[row] = -1
 
-    for i in range(n):
-        if is_safe(board, i, col, n):
-            board[i][col] = 1
-            solve_nqueens_util(board, col + 1, n, solutions)
-            board[i][col] = 0
+
+def is_safe(board, row, col):
+    """
+    chscking safety
+    """
+    for i in range(row):
+        if board[i] == col or \
+           board[i] - i == col - row or \
+           board[i] + i == col + row:
+            return False
+    return True
 
 
-if __name__ == "__main__":
+def main():
+    """
+    the main functio to call all other function in module
+    """
     if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
+        print_usage_and_exit()
 
     try:
         n = int(sys.argv[1])
@@ -65,4 +65,10 @@ if __name__ == "__main__":
         print("N must be at least 4")
         sys.exit(1)
 
-    solve_nqueens(n)
+    solutions = solve_nqueens(n)
+    for solution in solutions:
+        print(solution)
+
+
+if __name__ == "__main__":
+    main()
