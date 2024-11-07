@@ -31,8 +31,8 @@ def solve_nqueens(n):
     board = [[0 for _ in range(n)] for _ in range(n)]
     solutions = []
     solve_nqueens_util(board, 0, n, solutions)
-    for solution in solutions:
-        print(solution)
+    for sol in solutions:
+        print([[i, sol.index(i)] for i in sol])
 
 
 def solve_nqueens_util(board, col, n, solutions):
@@ -40,7 +40,7 @@ def solve_nqueens_util(board, col, n, solutions):
     Recursive utility function to solve the N Queens problem.
     """
     if col == n:
-        solutions.append([[row, col] for row, col in enumerate(board)])
+        solutions.append([row[:] for row in board])
         return
 
     for i in range(n):
