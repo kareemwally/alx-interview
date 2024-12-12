@@ -6,67 +6,47 @@ simple module to solve the prime game
 
 def isWinner(x, nums):
     """
-    Determines the winner of the prime game played x rounds.
-
-    Parameters:
-    x (int): The number of rounds.
-    nums (list): A list of integers representing
-    the upper limit of the set for each round.
-
+    Determine the winner of the prime game across multiple rounds
+    Args:
+        x (int): number of rounds
+        nums (list): array of n for each round
     Returns:
-    str: The name of the player that won the most rounds
-    ("Maria" or "Ben").
-         If the winner cannot be determined, returns None.
+        str: name of the winner (Maria/Ben) or None if tie
     """
-    def sieve(n):
+    if not nums or x < 1:
+        return None
+
+    def get_primes_up_to(n):
+        """Generate a list of primes up to n using Sieve of Eratosthenes"""
+        if n < 2:
+            return []
+        sieve = [True] * (n + 1)
+        sieve[0] = sieve[1] = False
+
+        for i in range(2, int(n ** 0.5) + 1):
+            if sieve[i]:
+                for j in range(i*i, n + 1, i):
+                    sieve[j] = False
+
+        return [i for i in range(2, n + 1) if sieve[i]]
+
+    def play_round(n):
         """
-        Generates a list of prime numbers up to
-        n using the Sieve of Eratosthenes.
-
-        Parameters:
-        n (int): The upper limit to generate prime numbers.
-
-        Returns:
-        list: A list of prime numbers up to n.
+        Simulate a single round of the game
+        Returns True if Maria wins, False if Ben wins
         """
-        is_prime = [True] * (n + 1)
-        p = 2
-        while (p * p <= n):
-            if (is_prime[p] is True):
-                for i in range(p * p, n + 1, p):
-                    is_prime[i] = False
-            p += 1
-        prime_numbers = [p for p in range(2, n + 1) if is_prime[p]]
-        return prime_numbers
+        if n < 2:
+            return False
 
-    def play_game(n):
-        """
-        Simulates the prime game for a given:
-        n and counts the number of moves.
+        primes = get_primes_up_to(n)
+        if not primes:
+            return False
 
-        Parameters:
-        n (int): The upper limit of the set for the game.
+        moves = len(primes)
+        return moves % 2 == 1
 
-        Returns:
-        int: The number of moves made in the game.
-        """
-        primes = sieve(n)
-        moves = 0
-        while primes:
-            prime = primes[0]
-            primes = [p for p in primes if p % prime != 0]
-            moves += 1
-        return moves
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        moves = play_game(n)
-        if moves % 2 == 1:
-            maria_wins += 1
-        else:
-            ben_wins += 1
+    maria_wins = sum(1 for n in nums[:x] if play_round(n))
+    ben_wins = x - maria_wins
 
     if maria_wins > ben_wins:
         return "Maria"
