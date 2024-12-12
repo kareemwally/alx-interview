@@ -7,19 +7,22 @@ simple module to solve the prime game
 def isWinner(x, nums):
     """
     Determines the winner of the prime game played x rounds.
+
     Parameters:
     x (int): The number of rounds.
-    nums (list): A list of integers representing the upper
-    limit of the set for each round.
+    nums (list): A list of integers representing
+    the upper limit of the set for each round.
 
     Returns:
-    str: The name of the player that won the most rounds ("Maria" or "Ben").
+    str: The name of the player that won the most rounds
+    ("Maria" or "Ben").
          If the winner cannot be determined, returns None.
     """
     def sieve(n):
         """
-        Generates a list of prime numbers up to n using the
-        Sieve of Eratosthenes.
+        Generates a list of prime numbers up to
+        n using the Sieve of Eratosthenes.
+
         Parameters:
         n (int): The upper limit to generate prime numbers.
 
@@ -29,7 +32,7 @@ def isWinner(x, nums):
         is_prime = [True] * (n + 1)
         p = 2
         while (p * p <= n):
-            if (is_prime[p]):
+            if (is_prime[p] is True):
                 for i in range(p * p, n + 1, p):
                     is_prime[i] = False
             p += 1
@@ -38,8 +41,9 @@ def isWinner(x, nums):
 
     def play_game(n):
         """
-        Simulates the prime game for a given
+        Simulates the prime game for a given:
         n and counts the number of moves.
+
         Parameters:
         n (int): The upper limit of the set for the game.
 
